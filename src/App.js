@@ -7,6 +7,7 @@ import { Route, Routes } from "react-router-dom";
 import PopulateDatabase from "./components/PopulateDatabase";
 import Splash from "./pages/Splash";
 import Home from "./pages/Home";
+import PokemonDetails from "./pages/PokemonDetails";
 
 // <------------ Styles ------------>
 import "./App.css";
@@ -16,8 +17,9 @@ export default function App() {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<PopulateDatabase />} />
+        <Route path="/" element={<Splash />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/pokemon/:id" element={<PokemonDetails />} />
       </Routes>
     </div>
   );
