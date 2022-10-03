@@ -76,7 +76,7 @@ export default function App() {
   }, []);
 
   return (
-    <>
+    <div className="container">
       <Routes>
         <Route path="/" element={<Splash />} />
         <Route
@@ -90,6 +90,6 @@ export default function App() {
           element={<Details dataSet={dataSet} displaySet={displaySet} />}
         />
       </Routes>
-    </>
+    </div>
   );
 }

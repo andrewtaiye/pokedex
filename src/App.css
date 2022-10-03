@@ -1,14 +1,33 @@
-body {
-  position: relative;
-  background-color: aqua;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-/* .splash {
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  background-color: #3d7dca;
-} */
+:root {
+  --normal: 168, 168, 120;
+  --fire: 239, 128, 48;
+  --fighting: 192, 49, 40;
+  --water: 103, 144, 240;
+  --flying: 168, 144, 240;
+  --grass: 120, 200, 79;
+  --poison: 159, 65, 160;
+  --electric: 248, 208, 48;
+  --ground: 224, 192, 104;
+  --psychic: 248, 88, 136;
+  --rock: 184, 160, 57;
+  --ice: 153, 216, 216;
+  --bug: 168, 184, 32;
+  --dragon: 112, 56, 248;
+  --ghost: 112, 88, 152;
+  --dark: 112, 88, 72;
+  --steel: 184, 184, 208;
+  --fairy: 238, 153, 172;
+}
+
+body {
+  background-color: rgb(8, 11, 92);
+}
 
 div {
   border: 1px solid red;
@@ -23,11 +42,85 @@ a:visited {
   color: inherit;
 }
 
+.container {
+  width: 100%;
+  padding: 30px 20px;
+  color: #fff;
+}
+
+.title {
+  width: 600px;
+  height: 75px;
+  margin: 0 auto;
+
+  font-size: 2rem;
+  font-weight: bold;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .splash img {
   width: 70%;
 }
 
 .row {
   display: flex;
-  width: 100%;
+}
+
+.display-area {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+
+.display-card {
+  display: flex;
+  flex-direction: column;
+  padding: 30px 7.5%;
+
+  border-radius: 15px;
+  border: 1px solid #cbdafd;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.display-card img {
+  width: 70%;
+  align-self: center;
+  margin-bottom: 40px;
+  filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.3))
+    drop-shadow(0 0 5px rgba(255, 255, 255, 0.4));
+}
+
+.id-display {
+  font-size: 1.5vw;
+  color: #cbdafd;
+}
+
+.name-display {
+  font-size: 2vw;
+  font-weight: 500;
+}
+
+.type-display {
+  display: flex;
+  justify-content: space-between;
+
+  margin-top: 60px;
+}
+
+.type {
+  height: 2.5vw;
+  width: 8.5vw;
+
+  border-radius: 20px;
+
+  font-size: 1.25vw;
+  font-weight: bold;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.7);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

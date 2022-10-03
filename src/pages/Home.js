@@ -9,8 +9,8 @@ export default function Home(props) {
   return (
     <>
       {props.isFetchingData && <p>Fetching Data. Please be patient.</p>}
-      <h1>Pokédex</h1>
-      <div className="display-area grid">
+      <span className="title">Pokédex</span>
+      <div className="display-area">
         {props.displaySet.map((element) => {
           return <PokemonCard {...element} key={Math.random()} />;
         })}

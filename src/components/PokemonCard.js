@@ -12,13 +12,26 @@ export default function PokemonCard(props) {
           src={props.sprites.other["official-artwork"].front_default}
           alt=""
         />
-        <p>{setThreeDigits(props.id)}</p>
-        <p>{capitaliseFirstLetter(props.name)}</p>
-        <p>
+        <span className="id-display">{setThreeDigits(props.id)}</span>
+        <span className="name-display">
+          {capitaliseFirstLetter(props.name)}
+        </span>
+        <span className="type-display row">
           {props.types.map((element) => {
-            return `${capitaliseFirstLetter(element.type.name)} `;
+            return (
+              <span
+                className="type"
+                style={{
+                  backgroundColor: `rgb(var(--${element.type.name}))`,
+                  boxShadow: `0 0 10px 2px rgba(var(--${element.type.name}), 0.4)`,
+                }}
+                key={Math.random()}
+              >
+                {capitaliseFirstLetter(element.type.name)}
+              </span>
+            );
           })}
-        </p>
+        </span>
       </div>
     </Link>
   );
