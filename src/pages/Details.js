@@ -112,7 +112,18 @@ export default function Details(props) {
         </div>
 
         <div className="details-main-middle">
-          <div className="circle">
+          <div
+            className="circle"
+            style={
+              pokemonDetails.types.length > 1
+                ? {
+                    backgroundImage: `linear-gradient(to bottom right, rgb(var(--${pokemonDetails.types[0].type.name})), rgb(var(--${pokemonDetails.types[1].type.name})))`,
+                  }
+                : {
+                    backgroundImage: `linear-gradient(to bottom right, rgb(var(--${pokemonDetails.types[0].type.name})), rgb(var(--${pokemonDetails.types[0].type.name})))`,
+                  }
+            }
+          >
             <img
               src={
                 pokemonDetails.sprites.other["official-artwork"].front_default
