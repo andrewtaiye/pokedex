@@ -16,21 +16,28 @@ export default function Details(props) {
   return (
     <>
       <Link to="/home">
-        <h1>Pokédex</h1>
+        <span className="title">Pokédex</span>
       </Link>
-      <div className="header">
-        <div className="header-left">
+
+      <div className="details-header row">
+        <div className="details-header-left">
           {pokemonId > 1 ? (
             <Link to={`/pokemon/${parseInt(pokemonId) - 1}`}>
               <p>Previous Pokemon</p>
             </Link>
           ) : null}
         </div>
-        <div className="header-middle">
-          <p>{setThreeDigits(pokemonDetails.id)}</p>
-          <p>{capitaliseFirstLetter(pokemonDetails.name)}</p>
+
+        <div className="details-header-middle">
+          <span className="id-details">
+            {setThreeDigits(pokemonDetails.id)}
+          </span>
+          <span className="name-details">
+            {capitaliseFirstLetter(pokemonDetails.name)}
+          </span>
         </div>
-        <div className="header-right">
+
+        <div className="details-header-right">
           {pokemonId < 151 ? (
             <Link to={`/pokemon/${parseInt(pokemonId) + 1}`}>
               <p>Next Pokemon</p>
@@ -38,30 +45,64 @@ export default function Details(props) {
           ) : null}
         </div>
       </div>
-      <div className="main">
-        <div className="main-left">
-          <p>Type</p>
-          {pokemonDetails.types.map((element) => {
-            return `${capitaliseFirstLetter(element.type.name)} `;
+
+      <div className="details-main row">
+        <div className="details-main-left">
+          <span className="header-text header-type">Type</span>
+          {pokemonDetails.types.map((element, index) => {
+            return (
+              <span
+                className={`details-type type-${index}`}
+                style={{
+                  backgroundColor: `rgb(var(--${element.type.name}))`,
+                  boxShadow: `0 0 10px 2px rgba(var(--${element.type.name}), 0.4)`,
+                }}
+                key={Math.random()}
+              >
+                {capitaliseFirstLetter(element.type.name)}
+              </span>
+            );
           })}
         </div>
-        <div className="main-middle">
-          <img
-            src={pokemonDetails.sprites.other["official-artwork"].front_default}
-            alt=""
-          />
+
+        <div className="details-main-middle">
+          <div className="circle">
+            <img
+              src={
+                pokemonDetails.sprites.other["official-artwork"].front_default
+              }
+              alt=""
+            />
+          </div>
         </div>
-        <div className="main-right">
-          <p>Height: {`${pokemonDetails.height / 10}m`}</p>
-          <p>Weight: {`${pokemonDetails.weight / 10}kg`}</p>
-          <p>
-            {`${pokemonDetails.abilities.length > 1 ? "Abilities:" : "Ability:"}
-            ${pokemonDetails.abilities.map((element) => {
-              return ` ${capitaliseFirstLetter(element.ability.name)}`;
-            })}`}
-          </p>
-          {/* prettier-ignore */}
-          <p onClick={() => {setStatModal(true)}}>Base Stats</p>
+
+        <div className="details-main-right">
+          <div className="details-height-weight row">
+            <div className="details-height col">
+              <span className="header-text">Height</span>
+              {`${pokemonDetails.height / 10}m`}
+            </div>
+            <div className="details-weight col">
+              <span className="header-text">Weight</span>
+              {`${pokemonDetails.weight / 10}kg`}
+            </div>
+          </div>
+
+          <div className="details-abilities col">
+            <span className="header-text">
+              {`${
+                pokemonDetails.abilities.length > 1 ? "Abilities" : "Ability:"
+              }`}
+            </span>
+            {pokemonDetails.abilities.map((element) => {
+              return <span>{capitaliseFirstLetter(element.ability.name)}</span>;
+            })}
+          </div>
+
+          <div className="details-base-stats">
+            {/* prettier-ignore */}
+            <span className="details-base-stats-text" onClick={() => {setStatModal(true)}}>Base Stats</span>
+          </div>
         </div>
 
         {statModal && (

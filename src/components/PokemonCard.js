@@ -20,7 +20,7 @@ export default function PokemonCard(props) {
           {props.types.map((element) => {
             return (
               <span
-                className="type"
+                className="card-type"
                 style={{
                   backgroundColor: `rgb(var(--${element.type.name}))`,
                   boxShadow: `0 0 10px 2px rgba(var(--${element.type.name}), 0.4)`,
