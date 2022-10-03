@@ -14,12 +14,12 @@ div {
   border: 1px solid red;
 }
 
-.display-area a {
+a {
   text-decoration: none;
 }
 
-.display-area a:link,
-.display-area a:visited {
+a:link,
+a:visited {
   color: inherit;
 }
 

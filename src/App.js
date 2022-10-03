@@ -33,7 +33,6 @@ export default function App() {
       const data = await res.json();
       const dataArray = Object.keys(data).map((key) => data[key]);
 
-      console.log(dataArray);
       setDisplaySet(dataArray);
     } catch (error) {
       console.log(error.message);
@@ -58,7 +57,6 @@ export default function App() {
 
       const data = await res.json();
 
-      console.log(data);
       setDataSet(data);
     } catch (error) {
       console.log(error.message);
@@ -84,14 +82,13 @@ export default function App() {
         <Route
           path="/home"
           element={
-            <Home
-              isFetchingData={isFetchingData}
-              setIsFetchingData={setIsFetchingData}
-              displaySet={displaySet}
-            />
+            <Home isFetchingData={isFetchingData} displaySet={displaySet} />
           }
         />
-        <Route path="/pokemon/:id" element={<Details />} />
+        <Route
+          path="/pokemon/:pokemonId"
+          element={<Details dataSet={dataSet} displaySet={displaySet} />}
+        />
       </Routes>
     </div>
   );
