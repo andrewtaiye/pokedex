@@ -7,10 +7,11 @@ import { Route, Routes } from "react-router-dom";
 import PopulateDatabase from "./components/PopulateDatabase";
 import Splash from "./pages/Splash";
 import Home from "./pages/Home";
-import PokemonDetails from "./pages/PokemonDetails";
+import Details from "./pages/Details";
 
 // <------------ Styles ------------>
 import "./App.css";
+import Details from "./pages/Details";
 
 // <------------ Main App ------------>
 export default function App() {
@@ -91,7 +92,7 @@ export default function App() {
             />
           }
         />
-        <Route path="/pokemon/:id" element={<PokemonDetails />} />
+        <Route path="/pokemon/:id" element={<Details />} />
       </Routes>
     </div>
   );
