@@ -14,6 +14,15 @@ div {
   border: 1px solid red;
 }
 
+.display-area a {
+  text-decoration: none;
+}
+
+.display-area a:link,
+.display-area a:visited {
+  color: inherit;
+}
+
 .splash img {
   width: 70%;
 }
