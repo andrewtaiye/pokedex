@@ -53,8 +53,20 @@ export default function PopulateDatabase() {
     }
   };
 
+  const emptyDatabase = async (url, data) => {
+    try {
+      const res = await fetch(url, {
+        method: "PUT",
+        body: JSON.stringify(data),
+      });
+      return res;
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   const pullDataSet = () => {
-    const url = "https://pokeapi.co/api/v2/pokemon/?limit=1154";
+    const url = "https://pokeapi.co/api/v2/pokemon/?limit=151";
     fetchDataSet(url);
   };
 
@@ -91,6 +103,16 @@ export default function PopulateDatabase() {
       )}
       <button onClick={pullDataSet}>Pull Data</button>
       <button onClick={pullAndPatchPokemonData}>Pull Pokemon Data</button>
+      <button
+        onClick={() => {
+          emptyDatabase(
+            "https://andrewtai-school-project-default-rtdb.asia-southeast1.firebasedatabase.app/.json",
+            {}
+          );
+        }}
+      >
+        Empty Database
+      </button>
     </div>
   );
 }
