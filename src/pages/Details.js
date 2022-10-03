@@ -13,6 +13,14 @@ export default function Details(props) {
     (element) => element.id === parseInt(pokemonId)
   );
 
+  const prevPokemon = props.displaySet.find(
+    (element) => element.id === parseInt(pokemonId) - 1
+  );
+
+  const nextPokemon = props.displaySet.find(
+    (element) => element.id === parseInt(pokemonId) + 1
+  );
+
   return (
     <>
       <Link to="/home">
@@ -20,15 +28,34 @@ export default function Details(props) {
       </Link>
 
       <div className="details-header row">
-        <div className="details-header-left">
+        <div className="details-header-left row">
           {pokemonId > 1 ? (
-            <Link to={`/pokemon/${parseInt(pokemonId) - 1}`}>
-              <p>Previous Pokemon</p>
-            </Link>
+            <>
+              <Link to={`/pokemon/${parseInt(pokemonId) - 1}`}>
+                <svg width="60px" height="60px">
+                  <polyline
+                    points="35 20, 20 30, 20 31, 35 40"
+                    stroke="#cbdafd"
+                    fill="transparent"
+                  />
+                  <circle
+                    className="nav-button"
+                    cx="50%"
+                    cy="50%"
+                    r="40%"
+                    stroke="#cbdafd"
+                    fill="transparent"
+                  />
+                </svg>
+              </Link>
+              <span className="prev-pokemon">
+                {capitaliseFirstLetter(prevPokemon.name)}
+              </span>
+            </>
           ) : null}
         </div>
 
-        <div className="details-header-middle">
+        <div className="details-header-middle col">
           <span className="id-details">
             {setThreeDigits(pokemonDetails.id)}
           </span>
@@ -38,10 +65,29 @@ export default function Details(props) {
         </div>
 
         <div className="details-header-right">
-          {pokemonId < 151 ? (
-            <Link to={`/pokemon/${parseInt(pokemonId) + 1}`}>
-              <p>Next Pokemon</p>
-            </Link>
+          {pokemonId < 12 ? (
+            <>
+              <span className="next-pokemon">
+                {capitaliseFirstLetter(nextPokemon.name)}
+              </span>
+              <Link to={`/pokemon/${parseInt(pokemonId) + 1}`}>
+                <svg width="60px" height="60px">
+                  <polyline
+                    points="25 20, 40 30, 40 31, 25 40"
+                    stroke="#cbdafd"
+                    fill="transparent"
+                  />
+                  <circle
+                    className="nav-button"
+                    cx="50%"
+                    cy="50%"
+                    r="40%"
+                    stroke="#cbdafd"
+                    fill="transparent"
+                  />
+                </svg>
+              </Link>
+            </>
           ) : null}
         </div>
       </div>
@@ -95,7 +141,11 @@ export default function Details(props) {
               }`}
             </span>
             {pokemonDetails.abilities.map((element) => {
-              return <span>{capitaliseFirstLetter(element.ability.name)}</span>;
+              return (
+                <span key={Math.random()}>
+                  {capitaliseFirstLetter(element.ability.name)}
+                </span>
+              );
             })}
           </div>
 

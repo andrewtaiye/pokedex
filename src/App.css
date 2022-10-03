@@ -29,9 +29,9 @@ body {
   background-color: rgb(8, 11, 92);
 }
 
-div {
+/* div {
   border: 1px solid red;
-}
+} */
 
 a {
   text-decoration: none;
@@ -44,6 +44,7 @@ a:visited {
 
 .container {
   width: 100%;
+  /* max-width: 1200px; */
   padding: 30px 20px;
   color: #fff;
 }
@@ -59,6 +60,11 @@ a:visited {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.splash {
+  display: flex;
+  justify-content: center;
 }
 
 .splash img {
@@ -86,7 +92,7 @@ a:visited {
   padding: 30px 7.5%;
 
   border-radius: 15px;
-  border: 1px solid #cbdafd;
+  border: 1px solid rgb(203, 218, 253);
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
@@ -100,7 +106,7 @@ a:visited {
 
 .id-display {
   font-size: 1.5vw;
-  color: #cbdafd;
+  color: rgb(203, 218, 253);
 }
 
 .name-display {
@@ -132,6 +138,7 @@ a:visited {
 
 .details-header {
   justify-content: space-between;
+  margin-bottom: 3vw;
 }
 
 .details-header-left,
@@ -144,8 +151,16 @@ a:visited {
   padding: 0 20px;
 }
 
+.nav-button:hover {
+  fill: rgba(255, 255, 255, 0.2);
+}
+
+.prev-pokemon,
+.next-pokemon {
+  margin: 0 15px;
+}
+
 .details-header-middle {
-  flex-direction: column;
   justify-content: center;
 }
 
@@ -156,12 +171,14 @@ a:visited {
 .id-details {
   font-size: 3vw;
   font-weight: 500;
-  color: #cbdafd;
+  color: rgb(203, 218, 253);
+  z-index: 100;
 }
 
 .name-details {
   font-size: 4vw;
   font-weight: 500;
+  z-index: 100;
 }
 
 .details-main {
@@ -181,6 +198,9 @@ a:visited {
 .details-main-middle .circle {
   background-color: rgba(90, 196, 255, 255);
   border-radius: 50%;
+  filter: drop-shadow(0 0 30px rgba(90, 196, 255, 0.3))
+    drop-shadow(0 0 5px rgba(90, 196, 255, 0.4))
+    drop-shadow(0 0 2px rgba(90, 196, 255, 0.8));
 }
 
 .details-main-middle img {
@@ -196,7 +216,7 @@ a:visited {
 }
 
 .header-text {
-  color: #cbdafd;
+  color: rgb(203, 218, 253);
   font-weight: 500;
 }
 
@@ -234,7 +254,7 @@ a:visited {
   width: 70%;
   margin-left: 15%;
   margin-right: 15%;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .details-weight {
@@ -245,7 +265,7 @@ a:visited {
   width: 70%;
   margin-left: 15%;
   margin-right: 15%;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .details-base-stats {
@@ -255,13 +275,16 @@ a:visited {
 
   display: flex;
   justify-content: center;
+
+  cursor: pointer;
 }
 
 .details-base-stats-text {
-  background: #cbdafd;
+  background: rgb(203, 218, 253);
   height: 3vw;
   width: 100%;
 
+  font-size: 1.75vw;
   font-weight: bold;
   text-shadow: 0 0 3px rgba(0, 0, 0, 0.7);
 
@@ -270,4 +293,8 @@ a:visited {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.details-base-stats-text:hover {
+  background: rgba(203, 218, 253, 0.7);
 }
