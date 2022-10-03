@@ -1,8 +1,13 @@
+// <------------ React Components ------------>
 import React, { useEffect, useState } from "react";
+
+// <------------ React Components ------------>
+import PokemonCard from "../components/PokemonCard";
 
 export default function Home() {
   const [isFetchingData, setIsFetchingData] = useState(false);
   const [dataSet, setDataSet] = useState([]);
+  const [displaySet, setDisplaySet] = useState([]);
 
   // <------------ Get data from Firebase ------------>
   const fetchDataSet = async (url) => {
@@ -18,8 +23,8 @@ export default function Home() {
 
       const data = await res.json();
 
-      console.log(data);
-      //   setDataSet(data.results);
+      setDataSet(data);
+      setDisplaySet(data.slice(1, 21));
     } catch (error) {
       console.log(error.message);
     }
@@ -27,12 +32,7 @@ export default function Home() {
     setIsFetchingData(false);
     console.log("Finished Fetching Data");
   };
-
-  const btnClick = () => {
-    const url =
-      "https://andrewtai-school-project-default-rtdb.asia-southeast1.firebasedatabase.app/.json";
-    fetchDataSet(url);
-  };
+  // <------------ End of get data from Firebase ------------>
 
   useEffect(() => {
     const url =
@@ -42,10 +42,14 @@ export default function Home() {
 
   // <------------ Home return view ------------>
   return (
-    <div>
-      Home
-      <h1>Hello!</h1>
-      <button onClick={btnClick}>Click me</button>
-    </div>
+    <>
+      {isFetchingData && <p>Fetching Data. Please be patient.</p>}
+      <h1>Pokédex</h1>
+      <div className="display-area grid">
+        {displaySet.map((element) => {
+          return <PokemonCard {...element} key={Math.random()} />;
+        })}
+      </div>
+    </>
   );
 }
