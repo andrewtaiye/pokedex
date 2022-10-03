@@ -1,8 +1,13 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Doughnut } from "react-chartjs-2";
+
 // <------------ Utility Components ------------>
 import { capitaliseFirstLetter, setThreeDigits } from "../components/utility";
+
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function Details(props) {
   const { pokemonId } = useParams();
@@ -12,8 +17,9 @@ export default function Details(props) {
   );
 
   console.log(pokemonDetails);
+
   return (
-    <div>
+    <>
       <Link to="/home">
         <h1>Pokédex</h1>
       </Link>
@@ -61,7 +67,30 @@ export default function Details(props) {
           </p>
           <p>Base Stats</p>
         </div>
+        <div className="stats">
+          {pokemonDetails.stats.map((element) => {
+            return (
+              <Doughnut
+                data={{
+                  datasets: [
+                    {
+                      data: [element.base_stat, 255 - element.base_stat, 255],
+                      backgroundColor: [
+                        "rgba(255,255,255,1)",
+                        "rgba(255,255,255,0)",
+                        "rgba(255,255,255,0)",
+                      ],
+                      borderWidth: [1, 1, 0],
+                      rotation: 270,
+                    },
+                  ],
+                  labels: [element.stat.name],
+                }}
+              />
+            );
+          })}
+        </div>
       </div>
-    </div>
+    </>
   );
 }

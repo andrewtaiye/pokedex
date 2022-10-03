@@ -26,3 +26,8 @@ a:visited {
 .splash img {
   width: 70%;
 }
+
+.row {
+  display: flex;
+  width: 100%;
+}
