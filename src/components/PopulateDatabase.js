@@ -18,7 +18,7 @@ export default function PopulateDatabase() {
 
       patchPokemonData(
         "https://andrewtai-school-project-default-rtdb.asia-southeast1.firebasedatabase.app/.json",
-        { [data.id]: data }
+        { [data.id - 1]: data }
       );
     } catch (error) {
       console.log(error.message);
@@ -102,7 +102,9 @@ export default function PopulateDatabase() {
         </>
       )}
       <button onClick={pullDataSet}>Pull Data</button>
-      <button onClick={pullAndPatchPokemonData}>Pull Pokemon Data</button>
+      <button onClick={pullAndPatchPokemonData}>
+        Pull and Patch Pokemon Data
+      </button>
       <button
         onClick={() => {
           emptyDatabase(
