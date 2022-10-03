@@ -11,7 +11,6 @@ import Details from "./pages/Details";
 
 // <------------ Styles ------------>
 import "./App.css";
-import Details from "./pages/Details";
 
 // <------------ Main App ------------>
 export default function App() {
