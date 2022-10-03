@@ -41,7 +41,7 @@ export default function App() {
     setIsFetchingData(false);
     console.log("Finished Fetching Initial Display Data");
   };
-  // <------------ End of get data from Firebase ------------>
+  // <------------ End of get displya set from Firebase ------------>
 
   // <------------ Get data set from Firebase ------------>
   const fetchDataSet = async (url) => {

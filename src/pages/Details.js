@@ -59,6 +59,7 @@ export default function Details(props) {
               return ` ${capitaliseFirstLetter(element.ability.name)}`;
             })}`}
           </p>
+          <p>Base Stats</p>
         </div>
       </div>
     </div>
