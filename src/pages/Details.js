@@ -1,22 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
-
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Doughnut } from "react-chartjs-2";
 
 // <------------ Utility Components ------------>
 import { capitaliseFirstLetter, setThreeDigits } from "../components/utility";
-
-ChartJS.register(ArcElement, Tooltip, Legend);
+import StatModal from "../components/StatModal";
 
 export default function Details(props) {
+  const [statModal, setStatModal] = useState(false);
   const { pokemonId } = useParams();
 
   const pokemonDetails = props.displaySet.find(
     (element) => element.id === parseInt(pokemonId)
   );
-
-  console.log(pokemonDetails);
 
   return (
     <>
@@ -65,31 +60,13 @@ export default function Details(props) {
               return ` ${capitaliseFirstLetter(element.ability.name)}`;
             })}`}
           </p>
-          <p>Base Stats</p>
+          {/* prettier-ignore */}
+          <p onClick={() => {setStatModal(true)}}>Base Stats</p>
         </div>
-        <div className="stats">
-          {pokemonDetails.stats.map((element) => {
-            return (
-              <Doughnut
-                data={{
-                  datasets: [
-                    {
-                      data: [element.base_stat, 255 - element.base_stat, 255],
-                      backgroundColor: [
-                        "rgba(255,255,255,1)",
-                        "rgba(255,255,255,0)",
-                        "rgba(255,255,255,0)",
-                      ],
-                      borderWidth: [1, 1, 0],
-                      rotation: 270,
-                    },
-                  ],
-                  labels: [element.stat.name],
-                }}
-              />
-            );
-          })}
-        </div>
+
+        {statModal && (
+          <StatModal onClick={setStatModal} stats={pokemonDetails.stats} />
+        )}
       </div>
     </>
   );
