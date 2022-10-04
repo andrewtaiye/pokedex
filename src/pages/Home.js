@@ -15,6 +15,10 @@ export default function Home(props) {
           return <PokemonCard {...element} key={Math.random()} />;
         })}
       </div>
+      <div className="load-more">
+        <button>Load More</button>
+      </div>
+      <div className="footer"></div>
     </>
   );
 }

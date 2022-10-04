@@ -15,6 +15,7 @@ import "./App.css";
 // <------------ Main App ------------>
 export default function App() {
   const [isFetchingData, setIsFetchingData] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [dataSet, setDataSet] = useState([]);
   const [displaySet, setDisplaySet] = useState([]);
 
@@ -43,36 +44,36 @@ export default function App() {
   };
   // <------------ End of get displya set from Firebase ------------>
 
-  // <------------ Get data set from Firebase ------------>
-  const fetchDataSet = async (url) => {
-    setIsFetchingData(true);
-    console.log("Fetching Main Data Set");
+  // // <------------ Get data set from Firebase ------------>
+  // const fetchDataSet = async (url) => {
+  //   setIsFetchingData(true);
+  //   console.log("Fetching Main Data Set");
 
-    try {
-      const res = await fetch(url);
+  //   try {
+  //     const res = await fetch(url);
 
-      if (res.status !== 200) {
-        throw new Error("Something went wrong.");
-      }
+  //     if (res.status !== 200) {
+  //       throw new Error("Something went wrong.");
+  //     }
 
-      const data = await res.json();
+  //     const data = await res.json();
 
-      setDataSet(data);
-    } catch (error) {
-      console.log(error.message);
-    }
+  //     setDataSet(data);
+  //   } catch (error) {
+  //     console.log(error.message);
+  //   }
 
-    setIsFetchingData(false);
-    console.log("Finished Fetching Main Data Set");
-  };
-  // <------------ End of get data from Firebase ------------>
+  //   setIsFetchingData(false);
+  //   console.log("Finished Fetching Main Data Set");
+  // };
+  // // <------------ End of get data from Firebase ------------>
 
   useEffect(() => {
     let url = `https://andrewtai-school-project-default-rtdb.asia-southeast1.firebasedatabase.app/.json?orderBy="id"&limitToFirst=12`;
     fetchDisplaySet(url);
 
-    url = `https://andrewtai-school-project-default-rtdb.asia-southeast1.firebasedatabase.app/.json`;
-    fetchDataSet(url);
+    // url = `https://andrewtai-school-project-default-rtdb.asia-southeast1.firebasedatabase.app/.json`;
+    // fetchDataSet(url);
   }, []);
 
   return (
