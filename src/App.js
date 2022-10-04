@@ -23,7 +23,7 @@ export default function App() {
   // <------------ Get display set from Firebase ------------>
   const fetchDisplaySet = async (url) => {
     setIsFetchingData(true);
-    console.log("Fetching Initial Display Data");
+    // console.log("Fetching Initial Display Data");
 
     try {
       const res = await fetch(url);
@@ -41,7 +41,7 @@ export default function App() {
     }
 
     setIsFetchingData(false);
-    console.log("Finished Fetching Initial Display Data");
+    // console.log("Finished Fetching Initial Display Data");
   };
   // <------------ End of get displya set from Firebase ------------>
 
