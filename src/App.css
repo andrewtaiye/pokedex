@@ -177,13 +177,13 @@ a:visited {
   font-size: 3vw;
   font-weight: 500;
   color: rgb(203, 218, 253);
-  z-index: 100;
+  z-index: 9;
 }
 
 .name-details {
   font-size: 4vw;
   font-weight: 500;
-  z-index: 100;
+  z-index: 9;
 }
 
 .details-main {

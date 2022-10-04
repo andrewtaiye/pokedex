@@ -3,6 +3,8 @@ import { Link, useParams } from "react-router-dom";
 
 // <------------ Utility Components ------------>
 import { capitaliseFirstLetter, setThreeDigits } from "../components/utility";
+
+// <------------ Components ------------>
 import StatModal from "../components/StatModal";
 
 export default function Details(props) {
