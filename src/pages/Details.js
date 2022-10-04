@@ -67,7 +67,7 @@ export default function Details(props) {
         </div>
 
         <div className="details-header-right">
-          {pokemonId < 12 ? (
+          {pokemonId < props.displaySet.length ? (
             <>
               <span className="next-pokemon">
                 {capitaliseFirstLetter(nextPokemon.name)}
