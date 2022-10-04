@@ -5,6 +5,14 @@ import React from "react";
 import PokemonCard from "../components/PokemonCard";
 
 export default function Home(props) {
+  const handleLoadMoreButtonClick = async () => {
+    const url = `https://andrewtai-school-project-default-rtdb.asia-southeast1.firebasedatabase.app/.json?orderBy="id"&startAt=${
+      props.displaySet.length + 1
+    }&endAt=${props.displaySet.length + 12}`;
+
+    props.fetchDisplaySet(url);
+  };
+
   // <------------ Home return view ------------>
   return (
     <>
@@ -16,7 +24,7 @@ export default function Home(props) {
         })}
       </div>
       <div className="load-more">
-        <button>Load More</button>
+        <button onClick={handleLoadMoreButtonClick}>Load More</button>
       </div>
       <div className="footer"></div>
     </>

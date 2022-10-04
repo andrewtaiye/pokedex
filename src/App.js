@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // <------------ React Components ------------>
 import React, { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
@@ -34,7 +35,7 @@ export default function App() {
       const data = await res.json();
       const dataArray = Object.keys(data).map((key) => data[key]);
 
-      setDisplaySet(dataArray);
+      setDisplaySet([...displaySet, ...dataArray]);
     } catch (error) {
       console.log(error.message);
     }
@@ -83,7 +84,12 @@ export default function App() {
         <Route
           path="/home"
           element={
-            <Home isFetchingData={isFetchingData} displaySet={displaySet} />
+            <Home
+              isFetchingData={isFetchingData}
+              displaySet={displaySet}
+              setDisplaySet={setDisplaySet}
+              fetchDisplaySet={fetchDisplaySet}
+            />
           }
         />
         <Route

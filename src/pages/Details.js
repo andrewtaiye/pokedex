@@ -150,7 +150,7 @@ export default function Details(props) {
           <div className="details-abilities col">
             <span className="header-text">
               {`${
-                pokemonDetails.abilities.length > 1 ? "Abilities" : "Ability:"
+                pokemonDetails.abilities.length > 1 ? "Abilities" : "Ability"
               }`}
             </span>
             {pokemonDetails.abilities.map((element) => {
