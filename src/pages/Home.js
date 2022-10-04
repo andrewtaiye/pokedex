@@ -16,15 +16,26 @@ export default function Home(props) {
   const handleFilterButtonClick = async () => {
     props.setIsFetchingData(true);
 
+    const filteredArray = [];
+
     let url = `https://andrewtai-school-project-default-rtdb.asia-southeast1.firebasedatabase.app/.json?orderBy="types/0/type/name"&startAt="water"`;
-    console.log("fetch first");
-    await props.fetchDisplaySet(url);
-    console.log("finished first");
+    const firstTypeData = await props.fetchData(url);
+    const firstTypeDataArray = Object.keys(firstTypeData).map(
+      (key) => firstTypeData[key]
+    );
+    filteredArray.push(...firstTypeDataArray);
 
     url = `https://andrewtai-school-project-default-rtdb.asia-southeast1.firebasedatabase.app/.json?orderBy="types/1/type/name"&startAt="water"`;
-    console.log("fetch second");
-    await props.fetchDisplaySet(url);
-    console.log("finished second");
+    const secondTypeData = await props.fetchData(url);
+    const secondTypeDataArray = Object.keys(secondTypeData).map(
+      (key) => secondTypeData[key]
+    );
+    filteredArray.push(...secondTypeDataArray);
+
+    filteredArray.sort((a, b) => a.id - b.id);
+
+    props.setDisplaySet(filteredArray);
+    props.setIsFetchingData(false);
   };
 
   // <------------ Home return view ------------>
