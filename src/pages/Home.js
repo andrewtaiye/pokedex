@@ -23,9 +23,11 @@ export default function Home(props) {
           return <PokemonCard {...element} key={Math.random()} />;
         })}
       </div>
-      <div className="load-more">
-        <button onClick={handleLoadMoreButtonClick}>Load More</button>
-      </div>
+      {props.displaySet.length === 151 ? null : (
+        <div className="load-more">
+          <button onClick={handleLoadMoreButtonClick}>Load More</button>
+        </div>
+      )}
       <div className="footer"></div>
     </>
   );
