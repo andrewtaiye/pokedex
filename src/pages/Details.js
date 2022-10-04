@@ -28,7 +28,6 @@ export default function Details(props) {
       <Link to="/home">
         <span className="title">Pokédex</span>
       </Link>
-
       <div className="details-header row">
         <div className="details-header-left row">
           {pokemonId > 1 ? (
@@ -93,7 +92,6 @@ export default function Details(props) {
           ) : null}
         </div>
       </div>
-
       <div className="details-main row">
         <div className="details-main-left">
           <span className="header-text header-type">Type</span>
@@ -126,12 +124,27 @@ export default function Details(props) {
                   }
             }
           >
-            <img
-              src={
-                pokemonDetails.sprites.other["official-artwork"].front_default
-              }
-              alt=""
-            />
+            {/* <div className="spinning-arcs">
+              <svg
+                width="100%"
+                height="100%"
+                // style={{ backgroundColor: "white" }}
+              >
+                <path
+                  d="M0 50% A90 90 0 0 1 100 10"
+                  stroke="black"
+                  fill="transparent"
+                />
+              </svg>
+            </div> */}
+            <div className="img-container">
+              <img
+                src={
+                  pokemonDetails.sprites.other["official-artwork"].front_default
+                }
+                alt=""
+              />
+            </div>
           </div>
         </div>
 
@@ -172,6 +185,22 @@ export default function Details(props) {
           <StatModal onClick={setStatModal} stats={pokemonDetails.stats} />
         )}
       </div>
+      {/* <div
+        className="test"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          marginTop: "60px",
+        }}
+      >
+        <svg width="200px" height="200px" style={{ backgroundColor: "white" }}>
+          <path
+            d="M10 100 A90 90 0 0 1 100 10"
+            stroke="black"
+            fill="transparent"
+          />
+        </svg>
+      </div> */}
     </>
   );
 }
