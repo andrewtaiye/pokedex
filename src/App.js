@@ -20,11 +20,7 @@ export default function App() {
   const [dataSet, setDataSet] = useState([]);
   const [displaySet, setDisplaySet] = useState([]);
 
-  // <------------ Get display set from Firebase ------------>
-  const fetchDisplaySet = async (url) => {
-    setIsFetchingData(true);
-    // console.log("Fetching Initial Display Data");
-
+  const fetchData = async (url) => {
     try {
       const res = await fetch(url);
 
@@ -33,16 +29,30 @@ export default function App() {
       }
 
       const data = await res.json();
-      const dataArray = Object.keys(data).map((key) => data[key]);
 
-      setDisplaySet([...displaySet, ...dataArray]);
+      return data;
     } catch (error) {
       console.log(error.message);
     }
+  };
 
+  // <------------ Get display set from Firebase ------------>
+  const initialFetch = async (url) => {
+    setIsFetchingData(true);
+    // console.log("Fetching Initial Display Data");
+
+    const data = await fetchData(url);
+
+    const dataArray = Object.keys(data).map((key) => data[key]);
+    const updatedArray = [...displaySet, ...dataArray];
+
+    updatedArray.sort((a, b) => a.id - b.id);
+
+    setDisplaySet(updatedArray);
     setIsFetchingData(false);
     // console.log("Finished Fetching Initial Display Data");
   };
+
   // <------------ End of get displya set from Firebase ------------>
 
   // // <------------ Get data set from Firebase ------------>
@@ -71,7 +81,7 @@ export default function App() {
 
   useEffect(() => {
     let url = `https://andrewtai-school-project-default-rtdb.asia-southeast1.firebasedatabase.app/.json?orderBy="id"&limitToFirst=12`;
-    fetchDisplaySet(url);
+    initialFetch(url);
 
     // url = `https://andrewtai-school-project-default-rtdb.asia-southeast1.firebasedatabase.app/.json`;
     // fetchDataSet(url);
@@ -86,9 +96,10 @@ export default function App() {
           element={
             <Home
               isFetchingData={isFetchingData}
+              setIsFetchingData={setIsFetchingData}
               displaySet={displaySet}
               setDisplaySet={setDisplaySet}
-              fetchDisplaySet={fetchDisplaySet}
+              fetchData={fetchData}
             />
           }
         />
