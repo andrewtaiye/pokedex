@@ -88,6 +88,44 @@ a:visited {
   flex-direction: column;
 }
 
+.filter-section {
+  margin-bottom: 30px;
+}
+
+.filter-type-toggle-btn {
+  font-size: 1.25vw;
+  font-weight: bold;
+  font-family: "Roboto Mono", monospace;
+  color: #fff;
+
+  cursor: pointer;
+  border-radius: 20px;
+  border: 1px solid rgb(var(--type));
+
+  background-color: transparent;
+
+  height: 2.5vw;
+  width: 8.5vw;
+}
+
+.filter-type-toggle-btn-active {
+  background-color: rgb(var(--type));
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.7);
+}
+
+.filter-button {
+  font-size: 24px;
+
+  cursor: pointer;
+  border-radius: 20px;
+  border: 1px solid rgb(203, 218, 253);
+
+  background-color: transparent;
+  color: rgb(203, 218, 253);
+
+  padding: 5px 50px;
+}
+
 .display-area {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -361,6 +399,13 @@ a:visited {
 }
 
 @media (min-width: 1200px) {
+  .filter-type-toggle-btn {
+    height: 30px;
+    width: 102px;
+
+    font-size: 15px;
+  }
+
   .id-display {
     font-size: 18px;
   }

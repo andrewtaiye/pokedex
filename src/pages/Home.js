@@ -3,14 +3,29 @@ import React from "react";
 
 // <------------ React Components ------------>
 import PokemonCard from "../components/PokemonCard";
+import Button from "../components/Button";
+
+// <------------ Utility Components ------------>
+import { pokemonTypes } from "../components/utility";
 
 export default function Home(props) {
-  const handleLoadMoreButtonClick = () => {
+  const handleLoadMoreButtonClick = async () => {
+    props.setIsFetchingData(true);
+
     const url = `https://andrewtai-school-project-default-rtdb.asia-southeast1.firebasedatabase.app/.json?orderBy="id"&startAt=${
       props.displaySet.length + 1
     }&endAt=${props.displaySet.length + 12}`;
 
-    props.fetchDisplaySet(url);
+    const data = await props.fetchData(url);
+
+    const dataArray = Object.keys(data).map((key) => data[key]);
+    const updatedArray = [...props.displaySet, ...dataArray];
+
+    updatedArray.sort((a, b) => a.id - b.id);
+
+    props.setDisplaySet(updatedArray);
+
+    props.setIsFetchingData(false);
   };
 
   const handleFilterButtonClick = async () => {
@@ -43,8 +58,21 @@ export default function Home(props) {
     <>
       {props.isFetchingData && <p>Fetching Data. Please be patient.</p>}
       <span className="title">Pokédex</span>
-      <div className="load-more">
-        <button onClick={handleFilterButtonClick}>Filter</button>
+      <div className="filter-section">
+        <div className="filter-type-toggle">
+          {Object.keys(pokemonTypes).map((key) => {
+            return (
+              <Button
+                key={Math.random()}
+                type={key}
+                colorValue={pokemonTypes[key]}
+              />
+            );
+          })}
+        </div>
+        <button className="filter-button" onClick={handleFilterButtonClick}>
+          Filter
+        </button>
       </div>
       <div className="display-area">
         {props.displaySet.map((element) => {
