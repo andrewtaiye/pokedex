@@ -8,8 +8,6 @@ const Button = React.forwardRef((props, ref) => {
   const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
-    console.log(ref.current);
-
     if (ref.current.indexOf(props.type) > -1) {
       setIsActive(true);
     } else {
