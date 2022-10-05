@@ -3,10 +3,17 @@ import React, { useState } from "react";
 // <------------ Utility Components ------------>
 import { capitaliseFirstLetter } from "../components/utility";
 
-export default function Button(props) {
+const Button = React.forwardRef((props, ref) => {
   const [isActive, setIsActive] = useState(false);
 
   const handleToggle = () => {
+    if (ref.current.indexOf(props.type) === -1) {
+      ref.current.push(props.type);
+    } else {
+      const index = ref.current.indexOf(props.type);
+      ref.current.splice(index, 1);
+    }
+
     setIsActive(!isActive);
   };
 
@@ -22,4 +29,6 @@ export default function Button(props) {
       {capitaliseFirstLetter(props.type)}
     </button>
   );
-}
+});
+
+export default Button;

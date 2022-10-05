@@ -1,5 +1,5 @@
 // <------------ React Components ------------>
-import React from "react";
+import React, { useRef } from "react";
 
 // <------------ React Components ------------>
 import PokemonCard from "../components/PokemonCard";
@@ -9,6 +9,9 @@ import Button from "../components/Button";
 import { pokemonTypes } from "../components/utility";
 
 export default function Home(props) {
+  // const [selectedTypes, setSelectedTypes] = useState([]);
+  const selectedTypes = useRef([]);
+
   const handleLoadMoreButtonClick = async () => {
     props.setIsFetchingData(true);
 
@@ -33,25 +36,64 @@ export default function Home(props) {
 
     const filteredArray = [];
 
-    let url = `https://andrewtai-school-project-default-rtdb.asia-southeast1.firebasedatabase.app/.json?orderBy="types/0/type/name"&startAt="water"`;
-    const firstTypeData = await props.fetchData(url);
-    const firstTypeDataArray = Object.keys(firstTypeData).map(
-      (key) => firstTypeData[key]
-    );
-    filteredArray.push(...firstTypeDataArray);
+    for (const type of selectedTypes.current) {
+      // const mergedArray = [];
 
-    url = `https://andrewtai-school-project-default-rtdb.asia-southeast1.firebasedatabase.app/.json?orderBy="types/1/type/name"&startAt="water"`;
-    const secondTypeData = await props.fetchData(url);
-    const secondTypeDataArray = Object.keys(secondTypeData).map(
-      (key) => secondTypeData[key]
-    );
-    filteredArray.push(...secondTypeDataArray);
+      let url = `https://andrewtai-school-project-default-rtdb.asia-southeast1.firebasedatabase.app/.json?orderBy="types/0/type/name"&startAt="${type}"&endAt="${type}"`;
+      const firstTypeData = await props.fetchData(url);
+      const firstTypeDataArray = Object.keys(firstTypeData).map(
+        (key) => firstTypeData[key]
+      );
+      filteredArray.push(...firstTypeDataArray);
+
+      url = `https://andrewtai-school-project-default-rtdb.asia-southeast1.firebasedatabase.app/.json?orderBy="types/1/type/name"&startAt="${type}"&endAt="${type}"`;
+      const secondTypeData = await props.fetchData(url);
+      const secondTypeDataArray = Object.keys(secondTypeData).map(
+        (key) => secondTypeData[key]
+      );
+      filteredArray.push(...secondTypeDataArray);
+    }
 
     filteredArray.sort((a, b) => a.id - b.id);
 
-    props.setDisplaySet(filteredArray);
+    for (let i = 0; i < filteredArray.length; i++) {
+      filteredArray[i] = JSON.stringify(filteredArray[i]);
+    }
+
+    const uniqueArray = [...new Set(filteredArray)];
+
+    for (let i = 0; i < uniqueArray.length; i++) {
+      uniqueArray[i] = JSON.parse(uniqueArray[i]);
+    }
+
+    props.setDisplaySet(uniqueArray);
     props.setIsFetchingData(false);
   };
+
+  // const handleFilterButtonClick = async () => {
+  //   props.setIsFetchingData(true);
+
+  //   const filteredArray = [];
+
+  //   let url = `https://andrewtai-school-project-default-rtdb.asia-southeast1.firebasedatabase.app/.json?orderBy="types/0/type/name"&startAt="water"`;
+  //   const firstTypeData = await props.fetchData(url);
+  //   const firstTypeDataArray = Object.keys(firstTypeData).map(
+  //     (key) => firstTypeData[key]
+  //   );
+  //   filteredArray.push(...firstTypeDataArray);
+
+  //   url = `https://andrewtai-school-project-default-rtdb.asia-southeast1.firebasedatabase.app/.json?orderBy="types/1/type/name"&startAt="water"`;
+  //   const secondTypeData = await props.fetchData(url);
+  //   const secondTypeDataArray = Object.keys(secondTypeData).map(
+  //     (key) => secondTypeData[key]
+  //   );
+  //   filteredArray.push(...secondTypeDataArray);
+
+  //   filteredArray.sort((a, b) => a.id - b.id);
+
+  //   props.setDisplaySet(filteredArray);
+  //   props.setIsFetchingData(false);
+  // };
 
   // <------------ Home return view ------------>
   return (
@@ -66,6 +108,8 @@ export default function Home(props) {
                 key={Math.random()}
                 type={key}
                 colorValue={pokemonTypes[key]}
+                ref={selectedTypes}
+                // setSelectedTypes={setSelectedTypes}
               />
             );
           })}
