@@ -88,6 +88,14 @@ a:visited {
   flex-direction: column;
 }
 
+.loading-spinner {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .filter-section {
   margin-bottom: 30px;
   display: flex;

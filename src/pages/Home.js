@@ -4,16 +4,18 @@ import React, { useRef, useState } from "react";
 // <------------ React Components ------------>
 import PokemonCard from "../components/PokemonCard";
 import Button from "../components/Button";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 // <------------ Utility Components ------------>
 import { pokemonTypes } from "../components/utility";
 
 export default function Home(props) {
   const [isFiltered, setIsFiltered] = useState(false);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
   const selectedTypes = useRef([]);
 
   const handleLoadMoreButtonClick = async () => {
-    props.setIsFetchingData(true);
+    setIsLoadingMore(true);
 
     const url = `https://andrewtai-school-project-default-rtdb.asia-southeast1.firebasedatabase.app/.json?orderBy="id"&startAt=${
       props.displaySet.length + 1
@@ -28,7 +30,7 @@ export default function Home(props) {
 
     props.setDisplaySet(updatedArray);
 
-    props.setIsFetchingData(false);
+    setIsLoadingMore(false);
   };
 
   const handleFilterButtonClick = async () => {
@@ -84,15 +86,16 @@ export default function Home(props) {
   // <------------ Home return view ------------>
   return (
     <>
-      {props.isFetchingData && <p>Fetching Data. Please be patient.</p>}
       <span className="title">Pokédex</span>
       <div className="filter-section">
         <div className="filter-type-toggle">
           {Object.keys(pokemonTypes).map((key) => {
             return (
-              <div className="filter-type-toggle-btn-container">
+              <div
+                key={Math.random()}
+                className="filter-type-toggle-btn-container"
+              >
                 <Button
-                  key={Math.random()}
                   type={key}
                   colorValue={pokemonTypes[key]}
                   ref={selectedTypes}
@@ -105,12 +108,27 @@ export default function Home(props) {
           Filter
         </button>
       </div>
-      <div className="display-area">
-        {props.displaySet.map((element) => {
-          return <PokemonCard {...element} key={Math.random()} />;
-        })}
-      </div>
-      {props.displaySet.length === 151 || isFiltered ? null : (
+      {props.isFetchingData ? (
+        <div className="loading-spinner">
+          <p>Catching Pokémon. Please be patient.</p>
+          <LoadingSpinner />
+        </div>
+      ) : (
+        <div className="display-area">
+          {props.displaySet.map((element) => {
+            return <PokemonCard {...element} key={Math.random()} />;
+          })}
+        </div>
+      )}
+
+      {props.displaySet.length === 151 ||
+      isFiltered ||
+      props.isFetchingData ? null : isLoadingMore ? (
+        <div className="loading-spinner">
+          <p>Catching more Pokémon. Please be patient.</p>
+          <LoadingSpinner />
+        </div>
+      ) : (
         <div className="load-more">
           <button onClick={handleLoadMoreButtonClick}>Load More</button>
         </div>

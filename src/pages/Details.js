@@ -124,19 +124,6 @@ export default function Details(props) {
                   }
             }
           >
-            {/* <div className="spinning-arcs">
-              <svg
-                width="100%"
-                height="100%"
-                // style={{ backgroundColor: "white" }}
-              >
-                <path
-                  d="M0 50% A90 90 0 0 1 100 10"
-                  stroke="black"
-                  fill="transparent"
-                />
-              </svg>
-            </div> */}
             <div className="img-container">
               <img
                 src={
@@ -185,22 +172,6 @@ export default function Details(props) {
           <StatModal onClick={setStatModal} stats={pokemonDetails.stats} />
         )}
       </div>
-      {/* <div
-        className="test"
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          marginTop: "60px",
-        }}
-      >
-        <svg width="200px" height="200px" style={{ backgroundColor: "white" }}>
-          <path
-            d="M10 100 A90 90 0 0 1 100 10"
-            stroke="black"
-            fill="transparent"
-          />
-        </svg>
-      </div> */}
     </>
   );
 }
