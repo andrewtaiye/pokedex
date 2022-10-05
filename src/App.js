@@ -44,7 +44,7 @@ export default function App() {
     const data = await fetchData(url);
 
     const dataArray = Object.keys(data).map((key) => data[key]);
-    const updatedArray = [...displaySet, ...dataArray];
+    const updatedArray = [...dataArray];
 
     updatedArray.sort((a, b) => a.id - b.id);
 
@@ -53,31 +53,7 @@ export default function App() {
     // console.log("Finished Fetching Initial Display Data");
   };
 
-  // <------------ End of get displya set from Firebase ------------>
-
-  // // <------------ Get data set from Firebase ------------>
-  // const fetchDataSet = async (url) => {
-  //   setIsFetchingData(true);
-  //   console.log("Fetching Main Data Set");
-
-  //   try {
-  //     const res = await fetch(url);
-
-  //     if (res.status !== 200) {
-  //       throw new Error("Something went wrong.");
-  //     }
-
-  //     const data = await res.json();
-
-  //     setDataSet(data);
-  //   } catch (error) {
-  //     console.log(error.message);
-  //   }
-
-  //   setIsFetchingData(false);
-  //   console.log("Finished Fetching Main Data Set");
-  // };
-  // // <------------ End of get data from Firebase ------------>
+  // <------------ End of get display set from Firebase ------------>
 
   useEffect(() => {
     let url = `https://andrewtai-school-project-default-rtdb.asia-southeast1.firebasedatabase.app/.json?orderBy="id"&limitToFirst=12`;
@@ -100,6 +76,7 @@ export default function App() {
               displaySet={displaySet}
               setDisplaySet={setDisplaySet}
               fetchData={fetchData}
+              initialFetch={initialFetch}
             />
           }
         />

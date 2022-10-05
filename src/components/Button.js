@@ -1,10 +1,21 @@
-import React, { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from "react";
 
 // <------------ Utility Components ------------>
 import { capitaliseFirstLetter } from "../components/utility";
 
 const Button = React.forwardRef((props, ref) => {
   const [isActive, setIsActive] = useState(false);
+
+  useEffect(() => {
+    console.log(ref.current);
+
+    if (ref.current.indexOf(props.type) > -1) {
+      setIsActive(true);
+    } else {
+      setIsActive(false);
+    }
+  }, []);
 
   const handleToggle = () => {
     if (ref.current.indexOf(props.type) === -1) {
@@ -13,7 +24,6 @@ const Button = React.forwardRef((props, ref) => {
       const index = ref.current.indexOf(props.type);
       ref.current.splice(index, 1);
     }
-
     setIsActive(!isActive);
   };
 

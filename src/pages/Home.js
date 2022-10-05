@@ -1,5 +1,5 @@
 // <------------ React Components ------------>
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 
 // <------------ React Components ------------>
 import PokemonCard from "../components/PokemonCard";
@@ -9,7 +9,7 @@ import Button from "../components/Button";
 import { pokemonTypes } from "../components/utility";
 
 export default function Home(props) {
-  // const [selectedTypes, setSelectedTypes] = useState([]);
+  const [isFiltered, setIsFiltered] = useState(false);
   const selectedTypes = useRef([]);
 
   const handleLoadMoreButtonClick = async () => {
@@ -32,6 +32,14 @@ export default function Home(props) {
   };
 
   const handleFilterButtonClick = async () => {
+    if (selectedTypes.current.length === 0) {
+      await props.initialFetch(
+        `https://andrewtai-school-project-default-rtdb.asia-southeast1.firebasedatabase.app/.json?orderBy="id"&limitToFirst=12`
+      );
+      setIsFiltered(false);
+      return;
+    }
+
     props.setIsFetchingData(true);
 
     const filteredArray = [];
@@ -67,33 +75,11 @@ export default function Home(props) {
     }
 
     props.setDisplaySet(uniqueArray);
+
     props.setIsFetchingData(false);
+
+    setIsFiltered(true);
   };
-
-  // const handleFilterButtonClick = async () => {
-  //   props.setIsFetchingData(true);
-
-  //   const filteredArray = [];
-
-  //   let url = `https://andrewtai-school-project-default-rtdb.asia-southeast1.firebasedatabase.app/.json?orderBy="types/0/type/name"&startAt="water"`;
-  //   const firstTypeData = await props.fetchData(url);
-  //   const firstTypeDataArray = Object.keys(firstTypeData).map(
-  //     (key) => firstTypeData[key]
-  //   );
-  //   filteredArray.push(...firstTypeDataArray);
-
-  //   url = `https://andrewtai-school-project-default-rtdb.asia-southeast1.firebasedatabase.app/.json?orderBy="types/1/type/name"&startAt="water"`;
-  //   const secondTypeData = await props.fetchData(url);
-  //   const secondTypeDataArray = Object.keys(secondTypeData).map(
-  //     (key) => secondTypeData[key]
-  //   );
-  //   filteredArray.push(...secondTypeDataArray);
-
-  //   filteredArray.sort((a, b) => a.id - b.id);
-
-  //   props.setDisplaySet(filteredArray);
-  //   props.setIsFetchingData(false);
-  // };
 
   // <------------ Home return view ------------>
   return (
@@ -109,7 +95,6 @@ export default function Home(props) {
                 type={key}
                 colorValue={pokemonTypes[key]}
                 ref={selectedTypes}
-                // setSelectedTypes={setSelectedTypes}
               />
             );
           })}
@@ -123,7 +108,7 @@ export default function Home(props) {
           return <PokemonCard {...element} key={Math.random()} />;
         })}
       </div>
-      {props.displaySet.length === 151 ? null : (
+      {props.displaySet.length === 151 || isFiltered ? null : (
         <div className="load-more">
           <button onClick={handleLoadMoreButtonClick}>Load More</button>
         </div>
