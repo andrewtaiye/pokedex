@@ -90,12 +90,14 @@ export default function Home(props) {
         <div className="filter-type-toggle">
           {Object.keys(pokemonTypes).map((key) => {
             return (
-              <Button
-                key={Math.random()}
-                type={key}
-                colorValue={pokemonTypes[key]}
-                ref={selectedTypes}
-              />
+              <div className="filter-type-toggle-btn-container">
+                <Button
+                  key={Math.random()}
+                  type={key}
+                  colorValue={pokemonTypes[key]}
+                  ref={selectedTypes}
+                />
+              </div>
             );
           })}
         </div>
