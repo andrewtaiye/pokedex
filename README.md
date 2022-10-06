@@ -30,7 +30,7 @@ A list of screens and their descriptions are included below.
 
    - **Statistics Screen**
 
-   The Statistics Screen displays the six basic statistics of each Pokémon. The screen is modal, overlaying the Details Screen when added to the DOM. Doughnut charts are used to display the statistics to provide meaningful information to the user. Each chart accepts a value of up to 255 (the maximum value for each statistic). The chart value is displayed in the middle of the chart and the chart label is displayed below the chart. A click event on the `Close` button will remove the modal screen from the DOM.
+     The Statistics Screen displays the six basic statistics of each Pokémon. The screen is modal, overlaying the Details Screen when added to the DOM. Doughnut charts are used to display the statistics to provide meaningful information to the user. Each chart accepts a value of up to 255 (the maximum value for each statistic). The chart value is displayed in the middle of the chart and the chart label is displayed below the chart. A click event on the `Close` button will remove the modal screen from the DOM.
 
 ## List of Features
 
