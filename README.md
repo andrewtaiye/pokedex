@@ -10,6 +10,16 @@ This project was created in React.JS, utilising ChartJS as a visual library and 
 
 Inspiration for this project is drawn from [the official Pokédex website in Singapore](https://sg.portal-pokemon.com/play/pokedex).
 
+## List of Screens
+
+A list of screens and their descriptions are included below.
+
+1. **Splash Screen**
+
+   The Splash Screen serves as the landing page for the application. Visually, it only contains the Pokémon logo as a button to navigate to the Home Screen. Behind the scenes, the Splash Screen serves as a delay before the user reaches the Home Screen as the `GET` query is running to fetch the initial batch of Pokémon to display on the Home Screen. This is to ensure that once the user navigates to the Home Screen, they do not have to wait for the first batch of Pokémon to load in.
+
+2. **Home Screen**
+
 ## List of Features
 
 Displayed below is a list of features implemented in the project.
