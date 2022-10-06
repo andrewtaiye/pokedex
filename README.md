@@ -6,7 +6,7 @@ The Pokédex is an experimental journey in creating a front-end web page using R
 
 The Pokédex is a web application where you can browse the extensive catalogue of Pokémon and view various details of each of them. Navigate through Generation I and gather insight to your favourite Pokémon.
 
-This project was created in React.JS, utilising ChartJS as a visual library and Firebase Realtime Database on the back-end. Calls to the Firebase Realtime Database are made using the REST APIs provided by Firebase. As an academic exercise, reusable portions of the application are stored as generic components that accept different parameters required by the implementation. CSS is delivered as global instruction sets and localised modules.
+This project was created in React.JS, utilising ChartJS as a visual library and Firebase Realtime Database as the back-end. Calls to the Firebase Realtime Database are made using the REST APIs provided by Firebase. As an academic exercise, reusable portions of the application are stored as generic components that accept different parameters required by the implementation. CSS is delivered as global instruction sets and localised modules.
 
 Inspiration for this project is drawn from [the official Pokédex website in Singapore](https://sg.portal-pokemon.com/play/pokedex).
 
@@ -19,6 +19,18 @@ A list of screens and their descriptions are included below.
    The Splash Screen serves as the landing page for the application. Visually, it only contains the Pokémon logo as a button to navigate to the Home Screen. Behind the scenes, the Splash Screen serves as a delay before the user reaches the Home Screen as the `GET` query is running to fetch the initial batch of Pokémon to display on the Home Screen. This is to ensure that once the user navigates to the Home Screen, they do not have to wait for the first batch of Pokémon to load in.
 
 2. **Home Screen**
+
+   The Home Screen is the main page that users will navigate through in the application. The Home Screen is broken down into two portions - a section for the user to select their desired filter inputs, and a section that displays each Pokémon found. Each Pokémon is displayed as its own card. The display area is laid out as a grid comprising of four columns.
+
+   On initial load, 12 Pokémon are displayed with the option for the user to load more Pokémon, 12 at a time. This additional loading is executed through the click of the `Load More` button found at the bottom of the display area. If all the Pokémon from the database has been loaded, the `Load More` button is hidden from view.
+
+3. **Details Screen**
+
+   The Details Screen provides the user with more information on the selected Pokémon. Height, weight, abilities and basic statistics are available on the Details Screen on top of the element types which are also available in the cards on the Home Screen. Users are also able to navigate between Pokémon (previous and next according to ID) from the Details Screen. The names of the previous and next Pokémon are also displayed. The basic statistics of the Pokémon are available through a button click on the `Base Stats` button which brings up a modal screen for statistics.
+
+   - **Statistics Screen**
+
+   The Statistics Screen displays the six basic statistics of each Pokémon. The screen is modal, overlaying the Details Screen when added to the DOM. Doughnut charts are used to display the statistics to provide meaningful information to the user. Each chart accepts a value of up to 255 (the maximum value for each statistic). The chart value is displayed in the middle of the chart and the chart label is displayed below the chart. A click event on the `Close` button will remove the modal screen from the DOM.
 
 ## List of Features
 
