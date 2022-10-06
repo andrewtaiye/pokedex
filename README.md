@@ -12,7 +12,7 @@ Inspiration for this project is drawn from [the official Pokédex website in Sin
 
 ## List of Screens
 
-A list of screens and their descriptions are included below.
+A list of screens and their descriptions is included below.
 
 1. **Splash Screen**
 
@@ -24,73 +24,50 @@ A list of screens and their descriptions are included below.
 
    On initial load, 12 Pokémon are displayed with the option for the user to load more Pokémon, 12 at a time. This additional loading is executed through the click of the `Load More` button found at the bottom of the display area. If all the Pokémon from the database has been loaded, the `Load More` button is hidden from view.
 
+   Users are able to use the filter inputs at the top of the Home Screen to select specific element types to display. Upon clicking the `Filter` button, data for the selected element types will be fetched from the back-end.
+
+   While data is being fetched, an activity indicator will be displayed to provide feedback to the user that the fetch query is running.
+
 3. **Details Screen**
 
-   The Details Screen provides the user with more information on the selected Pokémon. Height, weight, abilities and basic statistics are available on the Details Screen on top of the element types which are also available in the cards on the Home Screen. Users are also able to navigate between Pokémon (previous and next according to ID) from the Details Screen. The names of the previous and next Pokémon are also displayed. The basic statistics of the Pokémon are available through a button click on the `Base Stats` button which brings up a modal screen for statistics.
+   The Details Screen provides the user with more information on the selected Pokémon. Height, weight, abilities and basic statistics are available on the Details Screen on top of the element types which are also available in the cards on the Home Screen. Users are also able to navigate between Pokémon (previous and next according to ID) from the Details Screen. The names of the previous and next Pokémon are also displayed.
 
-   - **Statistics Screen**
+   The basic statistics of the Pokémon are available through a button click on the `Base Stats` button which brings up a modal for statistics. Doughnut charts are used to display the statistics to provide meaningful information to the user. Each chart accepts a value of up to 255 (the maximum value for each statistic). The chart value is displayed in the middle of the chart and the chart label is displayed below the chart. A click event on the `Close` button will remove the modal from the DOM.
 
-     The Statistics Screen displays the six basic statistics of each Pokémon. The screen is modal, overlaying the Details Screen when added to the DOM. Doughnut charts are used to display the statistics to provide meaningful information to the user. Each chart accepts a value of up to 255 (the maximum value for each statistic). The chart value is displayed in the middle of the chart and the chart label is displayed below the chart. A click event on the `Close` button will remove the modal screen from the DOM.
+## List of Components
 
-## List of Features
+A list of components and their descriptions is included below.
 
-Displayed below is a list of features implemented in the project.
+1. **Button**
 
-1. **Map Drawing**
+   The Button component is the first component that users will see upon navigating to the Home Screen. The button component is used as inputs for the user to filter the displayed Pokémon by element type. Each button has an active, inactive and hover state which are styled differently to provide feedback to the user. A `useState` hook is used within each button to store the active state as a boolean, while a `useRef` hook is used to check if the button for the respective element type is selected. A `useEffect` hook is used without dependencies to update the selection array whenever a button is made active or inactive.
 
-   Map drawing is managed by the HTML `<canvas>` element. Context is set to `2d` for the rendering of the map. As the map is based on the pixel art form, a 16 x 16 tileset is used. The tileset is put together in photoshop first, then included as an asset for canvas to render.
+2. **Card**
 
-   A game loop is used to continuously update and re-render the map with every frame. This game loop resides within the `World` class. Each loop starts by clearing the entire canvas and is set to repeat every 16 milliseconds. All game objects are then updated and the lower map, game objects and upper map are then rendered in sequence. This sequence allows for elements of the map to overlap with the game objects (e.g. in the event where a character is moving behind some trees or behind buildings).
+   The Card component contains the basic information of each Pokémon to be displayed. It contains artwork of the Pokémon, the Pokémon ID, name and element types. The entire card acts as a navigation link for users to click on to navigate to the Details Screen. Information required on the card is propped from the Home Screen.
 
-   Map data is stored within the `window.OverworldMaps` element and resides within the `OverworldMap` class. The data in the overworld maps object contains configuration information such as the image sources for the lower and upper maps, configuration for game objects, tiles with cutscenes, and a list of walls for collision detection.
+3. **Activity Indicator**
 
-2. **Game Objects**
+   The Activity Indicator component provides visual feedback to the user while data is being fetched from the database. It is implemented in two areas of the Home Screen: 1) when the `Load More` button is clicked, and 2) when the `Filter` button is clicked. The implementation is slightly different between the two. The former keeps the current displayed cards on screen while the additional data is being loaded while the latter removes the current displayed cards and replaces them with the new data that was fetched.
 
-   All objects that can be interacted with are created by the `GameObject` class. NPCs are created by the `Person` class which are an extension of the game object class. The distinction was made such that future expansion would be possible if other categories of objects require interactions. In this case, the `healingWell` is the only inanimate object and thus is also created using the person class for simplicity's sake.
+4. **Modal**
 
-   Note that all data within the `configObjects` object in the overworld maps object are meant as a template and should not be directly altered. Live game objects are created using the `mountObjects()` method what is part of the overworld map class. The `mountObjects()` method takes every key within `configObjects` and creates a new person class using the stored data. Each class is then included, as a value with the object id as its corresponding key, in the `gameObjects` property. This new object of key-value pairs is then used throughout the rest of the project.
+   The Modal component is used to display the basic statistics of the selected Pokémon within the Details Screen. It is conditionally rendered to the screen utilising a boolean state from the Details Screen. The basic statistics data is propped to the Modal component from the Details Screen.
 
-   Each game object contains a corresponding `Sprite` class which is used to render the object on the canvas. The sprite class takes in the image source, checks if the object uses a shadow, and renders the objects accordingly. As game objects utilise a 32 x 32 spritesheet, the full `drawImage` constructor is used to determine which frame to draw. Sprites are also offset upwards and to the left to allow proper use of character coordinates within the 16 x 16 tileset (i.e. the 32 x 32 frame would normally take up 4 tiles, but the character is offset to be rendered in the correct 16 x 16 tile). Another modifier is utilised to create the 'centered camera' effect while navigating the map.
+5. **Utility**
 
-   - **Object Animations**
-
-     Object animationed are managed by the `Sprite` class. A list of animations is stored in the `animations` property as an array of arrays - an array of animations, each with an array of coordinates pointing to the specific frames.
-
-     Note that as the 'people' sprites only contain walking animations and not idle animations, the idle animations for 'people' and 'monsters' have been split up. Ideally, both categories of objects should have walking and idle animations and will be able to utilise the same animation code block.
-
-     Properties are set up for the class to include the current animation (`currentAnimation`), the current animation frame (`currentAnimationFrame`), an animation frame limit (`animationFrameLimit`) and the animation frame progress (`animationFrameProgress`). The animation frame limit determines how many times a frame will be displayed before moving on to the next frame. A lower frame limit will make the objects animate faster.
-
-     At the start of each animation, the animation frame progress is set to the animation frame limit and ticks down with every game loop. If the animation frame progress is greater than 0, the animation will not move on to the next frame. If the animation frame progress is 0, the animation will move on to the next frame by increasing the index of the current animation frame. If the index for the next frame increases beyond the animation array's length, it is set to 0 and the animation loop restarts. This allows for objects with different animation lengths, but those animations will need to be specified separately from the rest of the animations within the `animations` array.
-
-3. **Map Navigation**
-   - **Collision Detection**
-   - **Camera Movement**
-4. **Key Bindings**
-5. **NPC Behaviours and Interactions**
-   - **Typewriter Effect**
-6. **Cutscenes and Activation Methods**
-7. **Battle Mechanics**
-   - **Battle UI**
-   - **Battle Menus**
-   - **Turn Cycle**
-   - **Combatants**
-   - **Attacks and Damage Formulas**
-   - **Items**
-   - **Statuses**
-   - **Experience Points Distribution and Tables**
-   - **Persistent Character State**
-8. **Character Stats and Growth**
-9. **Monster Respawn Timer**
-10. **Village Healers**
-11. **Title Screen**
+   The Utility component is created to house all frequently used utility functions and variables.
 
 ## Potential Future Implementations
 
-- **Pause Menu**
-- **Overworld UI**
-- **Saving Game State**
+- **Filter by Word Input**
+- **Filter Reset Button**
+- **Include Pokémon Element Weaknesses**
+- **Include Pokémon Evolution Chain**
+- **Include Pokémon Available Moveset**
 
 ## Issues Faced
 
-- **Launching an Event within an Event**
-- **Infinite Loop of Properties**
+- **Persistence of Button Active State**
+
+  The active state of the filter buttons do not seem to persist from render to render. Seems like the button component is unmounting and remounting with each re-render. Current implemented workaround is to set the state with each button click and also with each mount (by checking against the selected element array that is passed as a `useRef` variable). Could potentially be because of the `forwardRef` call.
