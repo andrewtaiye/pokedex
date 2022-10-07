@@ -18,7 +18,7 @@ const Overlay = (props) => {
   };
 
   return (
-    <div className={styles.backdrop}>
+    <div className={styles.backdrop} onClick={closeModal}>
       <div className={`${styles.card} ${styles.modal}`}>
         <header className={`${styles.header}`}>
           <span className={`${styles.headerText}`}>Base Stats</span>
