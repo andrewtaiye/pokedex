@@ -23,6 +23,9 @@ export default function Details(props) {
     (element) => element.id === parseInt(pokemonId) + 1
   );
 
+  const idArray = props.displaySet.map((element) => element.id);
+  console.log(idArray.indexOf(parseInt(pokemonId)), pokemonId);
+
   return (
     <>
       <Link to="/home">
@@ -30,7 +33,7 @@ export default function Details(props) {
       </Link>
       <div className="details-header row">
         <div className="details-header-left row">
-          {pokemonId > 1 ? (
+          {idArray.indexOf(parseInt(pokemonId)) > 0 ? (
             <>
               <Link to={`/pokemon/${parseInt(pokemonId) - 1}`}>
                 <svg width="60px" height="60px">
@@ -66,7 +69,8 @@ export default function Details(props) {
         </div>
 
         <div className="details-header-right">
-          {pokemonId < props.displaySet.length ? (
+          {idArray.indexOf(parseInt(pokemonId)) <
+          props.displaySet.length - 1 ? (
             <>
               <span className="next-pokemon">
                 {capitaliseFirstLetter(nextPokemon.name)}
