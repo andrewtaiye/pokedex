@@ -24,7 +24,6 @@ export default function Details(props) {
   );
 
   const idArray = props.displaySet.map((element) => element.id);
-  console.log(idArray.indexOf(parseInt(pokemonId)), pokemonId);
 
   return (
     <>
